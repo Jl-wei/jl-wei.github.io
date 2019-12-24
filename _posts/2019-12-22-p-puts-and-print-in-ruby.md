@@ -106,10 +106,3 @@ p c
 Hello from C inspect
 => Hello from C inspect
 ```
-
-
-
-
-
-
-

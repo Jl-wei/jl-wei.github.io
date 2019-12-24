@@ -104,4 +104,3 @@ SELECT COUNT(*) FROM "posts" WHERE "posts"."user_id" = ?  [["user_id", 2]]
 SELECT COUNT(*) FROM "posts" WHERE "posts"."user_id" = ?  [["user_id", 3]]
 ...
 ```
-
