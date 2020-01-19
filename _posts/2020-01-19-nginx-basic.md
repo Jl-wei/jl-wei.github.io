@@ -55,7 +55,6 @@ systemctl restart nginx
 systemctl reload nginx
 ```
 
-
 ## Configuration
 
 ```
@@ -85,7 +84,7 @@ http {
 
 #### Location priority
 
-**It fires in this order.**
+It fires in this order:
 
 1. `=`(exactly)
 
@@ -133,11 +132,11 @@ server {
   rewrite ^/greet/john /thumb.png;
 
   location /greet {
-  	return 200 "Hello User";
+    return 200 "Hello User";
   }
 
   location = /greet/john {
-  	return 200 "Hello John";
+    return 200 "Hello John";
   }
 }
 ```
@@ -218,11 +217,13 @@ $ systemctl reload nginx
 
 Then include it in `nginx.conf` file then `systemctl reload nginx`
 
-```
+```yaml
 load_module /etc/nginx/modules/ngx_http_image_filter_module.so;
 ```
 
-### FastCGI
+### Backend application
+
+#### FastCGI
 
 FastCGI is one way to run the backend web application. It needs you to have the application which support FastCGI. In Ubuntu, you could run PHP as FastCIG with
 
@@ -241,3 +242,38 @@ location ~\.php$ {
   fastcgi_pass unix:/run/php/php7.2-fpm.sock;
 }
 ```
+
+#### Reverse proxy
+
+Another way of using Nginx to serve a web application is reverse proxy, it allows Nginx to forward a request from client to your app, like Rails application:
+
+```
+http {
+  upstream rails_app { 
+    server 127.0.0.1:3000;
+    server 127.0.0.1:3001;
+    server 127.0.0.1:3002;
+  }
+
+  server {
+    listen 80;
+    root /path/to/application/public;
+
+    location / {
+      error_page 404 /404.html; 
+      error_page 500 502 503 504 /50x.html;
+
+      try_files $uri $uri/index.html @rails;
+    }
+    
+    location @rails {
+      proxy_set_header X-Forwarded-Proto $scheme;
+      proxy_pass http://rails_app;
+    }
+  }
+}
+```
+
+In the example above, `upstream` create a load balancer named `rails_app` which balance the request to the three rails applications.
+
+Reverse proxy is a more popular and scalable way for serving backend applications.
