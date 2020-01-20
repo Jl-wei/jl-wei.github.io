@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Nginx basic"
+title: "Nginx Basic"
 date: 2020-01-19 11:01:59 +0100
 categories: ['Nginx']
 ---
