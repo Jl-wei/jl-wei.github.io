@@ -48,21 +48,21 @@ Just like  `preload`, it generate two separate queries.
 However, `includes` is more advanced, depends on the whether a `where` or `order` clause is used for the associated table, a `LEFT OUTER JOIN` or two separete queries will be used.
 
 ```ruby
-User.includes(:posts).where(posts: {id: 1}).to_a
+User.includes(:posts).where(id: 1).to_a
 
 #=>
-SELECT "users"."id" AS t0_r0, "users"."created_at" AS t0_r1, "users"."updated_at" AS t0_r2, "posts"."id" AS t1_r0, "posts"."body" AS t1_r1, "posts"."user_id" AS t1_r2, "posts"."created_at" AS t1_r3, "posts"."updated_at" AS t1_r4 
-FROM "users" LEFT OUTER JOIN "posts" ON "posts"."user_id" = "users"."id" WHERE "posts"."id" = ?  [["id", 1]]
+SELECT "users".* FROM "users" WHERE "users"."id" = 1;
+SELECT "posts".* FROM "posts" WHERE "posts"."user_id" IN (1);
 ```
 
 By default, it will use two separate queries, but you can also force it to use `LEFT OUTER JOIN` through `references`.
 
 ```ruby
-User.includes(:posts).where(posts: {id: 1}).to_a
+User.includes(:posts).references(:posts).where(id: 1).to_a
 
 #=>
 SELECT "users"."id" AS t0_r0, "users"."created_at" AS t0_r1, "users"."updated_at" AS t0_r2, "posts"."id" AS t1_r0, "posts"."body" AS t1_r1, "posts"."user_id" AS t1_r2, "posts"."created_at" AS t1_r3, "posts"."updated_at" AS t1_r4 
-FROM "users" LEFT OUTER JOIN "posts" ON "posts"."user_id" = "users"."id" WHERE "posts"."id" = ?  [["id", 1]]
+FROM "users" LEFT OUTER JOIN "posts" ON "posts"."user_id" = "users"."id" WHERE "users"."id" = 1;
 ```
 
 
