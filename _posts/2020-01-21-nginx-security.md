@@ -2,7 +2,7 @@
 layout: post
 title: "Nginx Security"
 date: 2020-01-21 21:06:06 +0100
-categories:
+categories: ['Nginx']
 ---
 
 ## Security
