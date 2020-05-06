@@ -13,7 +13,7 @@ Because of the complexity of tree data structure, there are many ways to travers
 
 ### Pre-order
 
-LeetCode: https://leetcode.com/problems/binary-tree-preorder-traversal/
+LeetCode: [144. Binary Tree Preorder Traversal](https://leetcode.com/problems/binary-tree-preorder-traversal/)
 
 #### Recursive solution
 
@@ -60,7 +60,7 @@ var preorderTraversal = function(root) {
 
 ### In-order
 
-LeetCode: https://leetcode.com/problems/binary-tree-inorder-traversal/
+LeetCode: [94. Binary Tree Inorder Traversal](https://leetcode.com/problems/binary-tree-inorder-traversal/)
 
 #### Recursive solution
 
@@ -110,9 +110,9 @@ var inorderTraversal = function(root) {
 
 ### Post-order
 
-#### Recursive solution
+LeetCode: [145. Binary Tree Postorder Traversal](https://leetcode.com/problems/binary-tree-postorder-traversal/)
 
-LeetCode: https://leetcode.com/problems/binary-tree-postorder-traversal/
+#### Recursive solution
 
 ```javascript
 var postorderTraversal = function(root) {
