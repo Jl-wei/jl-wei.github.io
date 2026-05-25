@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jialiang Wei</title>
+    <link rel="shortcut icon" href="emoji-sing-right.svg"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dark: #141413;
+            --light: #faf9f5;
+            --mid-gray: #b0aea5;
+            --light-gray: #e8e6dc;
+            --blue: #6a9bcc;
+            --blue-hover: #5588aa;
+            --blue-light: rgba(106, 155, 204, 0.15);
+            --green: #788c5d;
+            --green-hover: #3d4f22;
+            --green-light: rgba(120, 140, 93, 0.15);
+            --yellow: #d4a574;
+            --yellow-hover: #b8956a;
+            --yellow-light: rgba(212, 165, 116, 0.15);
+            --radius: 12px;
+            --radius-lg: 20px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lora', Georgia, serif;
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', Arial, sans-serif;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 80px 24px 120px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 64px;
+            animation: fadeIn 0.6s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .avatar {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            margin: 0 auto 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            object-fit: cover;
+            border: 4px solid var(--light-gray);
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+
+        .affiliation {
+            font-size: 18px;
+            color: var(--mid-gray);
+            margin-bottom: 16px;
+            font-weight: 400;
+        }
+
+        .bio {
+            font-size: 17px;
+            color: var(--mid-gray);
+            margin-bottom: 48px;
+            text-align: center;
+            line-height: 1.8;
+        }
+
+        .bio a, .card a {
+            color: var(--green);
+            text-decoration: none;
+        }
+
+        .bio a:hover, .card a:hover {
+            text-decoration: underline;
+        }
+
+        .section {
+            margin-bottom: 56px;
+            animation: fadeIn 0.6s ease;
+            animation-fill-mode: both;
+        }
+
+        .section:nth-child(2) { animation-delay: 0.1s; }
+        .section:nth-child(3) { animation-delay: 0.2s; }
+        .section:nth-child(4) { animation-delay: 0.3s; }
+        .section:nth-child(5) { animation-delay: 0.4s; }
+
+        .section-title {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--mid-gray);
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--light-gray);
+        }
+
+        .card {
+            background: var(--light);
+            border: 1px solid var(--light-gray);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 16px;
+            transition: all 0.2s ease;
+        }
+
+        .card:hover {
+            border-color: var(--mid-gray);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(20, 20, 19, 0.06);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+
+        .card h3 {
+            font-size: 17px;
+            color: var(--dark);
+            margin-bottom: 4px;
+        }
+
+        .card .subtitle {
+            font-size: 15px;
+            color: var(--blue);
+            font-weight: 500;
+        }
+
+        .card .period {
+            font-size: 13px;
+            color: var(--mid-gray);
+            font-family: 'Poppins', Arial, sans-serif;
+        }
+
+        .card p {
+            font-size: 15px;
+            color: var(--mid-gray);
+            line-height: 1.6;
+        }
+
+        .publication-item {
+            padding: 20px 24px;
+            background: var(--light);
+            border: 1px solid var(--light-gray);
+            border-radius: var(--radius);
+            margin-bottom: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .publication-item:hover {
+            border-color: var(--green);
+            box-shadow: 0 4px 20px rgba(85, 107, 47, 0.1);
+        }
+
+        .publication-item h3 {
+            font-size: 16px;
+            color: var(--dark);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .publication-item .authors {
+            font-size: 14px;
+            color: var(--mid-gray);
+            margin-bottom: 6px;
+        }
+
+        .publication-item .authors .author-name {
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        .publication-item .authors sup {
+            font-size: 10px;
+            vertical-align: super;
+        }
+
+        .publication-item .co-first {
+            font-size: 12px;
+            color: var(--green);
+            font-style: italic;
+            margin-top: 4px;
+            margin-bottom: 0;
+        }
+
+        .publication-item .ranking {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-left: 8px;
+            font-family: 'Poppins', Arial, sans-serif;
+        }
+
+        .publication-item .ranking.ccf-a {
+            background: rgba(217, 119, 87, 0.15);
+            color: #d97757;
+        }
+
+        .publication-item .ranking.ccf-b {
+            background: rgba(106, 155, 204, 0.15);
+            color: var(--blue);
+        }
+
+        .publication-item .ranking.ccf-c {
+            background: rgba(120, 140, 93, 0.15);
+            color: var(--green);
+        }
+
+        .publication-item .venue-line {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .publication-item .venue {
+            font-size: 13px;
+            color: var(--green);
+            font-weight: 500;
+        }
+
+        .publication-item .venue {
+            font-size: 13px;
+            color: var(--green);
+            font-weight: 500;
+        }
+
+        .publication-item .links {
+            margin-top: 12px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .publication-item .link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-family: 'Poppins', Arial, sans-serif;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .link-btn.primary {
+            background: var(--green);
+            color: white;
+        }
+
+        .link-btn.primary:hover {
+            background: var(--green-hover);
+        }
+
+        .link-btn.secondary {
+            background: var(--light-gray);
+            color: var(--dark);
+        }
+
+        .link-btn.secondary:hover {
+            background: var(--mid-gray);
+            color: var(--light);
+        }
+
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .link-card {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px;
+            background: var(--light);
+            border: 1px solid var(--light-gray);
+            border-radius: var(--radius);
+            text-decoration: none;
+            color: var(--dark);
+            transition: all 0.2s ease;
+        }
+
+        .link-card:hover {
+            border-color: var(--green);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(85, 107, 47, 0.1);
+        }
+
+        .link-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .link-icon.github {
+            background: rgba(0, 0, 0, 0.08);
+            color: #24292f;
+        }
+
+        .link-icon.linkedin {
+            background: rgba(10, 102, 194, 0.1);
+            color: #0a66c2;
+        }
+
+        .link-icon.huggingface {
+            background: rgba(255, 191, 0, 0.15);
+            color: #ff9d00;
+        }
+
+        .link-icon.scholar {
+            background: rgba(85, 107, 47, 0.15);
+            color: var(--green);
+        }
+
+        .link-icon svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        .link-content {
+            flex: 1;
+        }
+
+        .link-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 2px;
+            font-family: 'Poppins', Arial, sans-serif;
+        }
+
+        .link-desc {
+            font-size: 13px;
+            color: var(--mid-gray);
+        }
+
+        .obfuscated {
+            unicode-bidi: bidi-override;
+            direction: rtl;
+        }
+
+        .topic {
+            display: inline-block;
+            padding: 8px 16px;
+            background: var(--light-gray);
+            border-radius: 100px;
+            font-size: 14px;
+            color: var(--dark);
+            margin-right: 8px;
+            margin-bottom: 8px;
+            font-family: 'Poppins', Arial, sans-serif;
+        }
+
+        footer {
+            text-align: center;
+            padding-top: 48px;
+            margin-top: 48px;
+            border-top: 1px solid var(--light-gray);
+            color: var(--mid-gray);
+            font-size: 14px;
+        }
+
+        /* Research Experience - Blue Theme */
+        .section-experience .card:hover {
+            border-color: var(--blue);
+            box-shadow: 0 4px 20px var(--blue-light);
+        }
+        .section-experience .card a {
+            color: var(--blue);
+        }
+
+        /* Publications - Green Theme */
+        .section-publications .publication-item:hover {
+            border-color: var(--green);
+            box-shadow: 0 4px 20px var(--green-light);
+        }
+        .section-publications .link-btn.primary {
+            background: var(--green);
+        }
+        .section-publications .link-btn.primary:hover {
+            background: var(--green-hover);
+        }
+
+        /* Connect - Yellow Theme */
+        .section-connect .link-card:hover {
+            border-color: var(--yellow);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px var(--yellow-light);
+        }
+        .section-connect .link-icon {
+            background: var(--yellow-light);
+            color: var(--yellow);
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 60px 20px 100px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .avatar {
+                width: 120px;
+                height: 120px;
+                font-size: 40px;
+            }
+
+            .links-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card-header {
+                flex-direction: column;
+            }
+
+            .card .period {
+                margin-top: 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="avatar.jpg" alt="Jialiang Wei" class="avatar">
+            <h1>Jialiang Wei</h1>
+            <p class="affiliation">Hasso Plattner Institute</p>
+        </header>
+
+        <p class="bio">
+            Postdoctoral fellow at <a href="https://maalejw.github.io" target="_blank" rel="noopener noreferrer">Prof. Dr. Walid Maalej</a>'s group at <a href="https://hpi.de/en/" target="_blank" rel="noopener noreferrer">Hasso Plattner Institute</a>. 
+            Leverage AI techniques to bridge communication gaps between users and development teams, ensuring aligned understanding and efficient requirement specification.
+        </p>
+
+        <div class="section">
+            <h2 class="section-title">Research Topics</h2>
+            <div>
+                <span class="topic">Requirements Engineering</span>
+                <span class="topic">User Interface</span>
+                <span class="topic">User Feedback</span>
+                <span class="topic">Mining Software Repositories</span>
+            </div>
+        </div>
+
+        <div class="section section-publications">
+            <h2 class="section-title">Publications</h2>
+            <div class="publication-item">
+                <h3>LikeThis! Empowering App Users to Submit UI Improvement Suggestions Instead of Complaints</h3>
+                <p class="authors"><span class="author-name">J. Wei</span><sup>*</sup>, A. Ebrahimi Pourasad<sup>*</sup> and W. Maalej</p>
+                <p class="co-first">* Co-first author</p>
+                <div class="venue-line">
+                    <span class="venue">International Conferernce on Software Engineering (ICSE'26), 2026</span>
+                </div>
+                <div class="links">
+                    <a href="https://arxiv.org/abs/2603.04245" target="_blank" class="link-btn secondary">Preprint</a>
+                </div>
+            </div>
+            <div class="publication-item">
+                <h3>GUing: A Mobile GUI Search Engine using a Vision-Language Model</h3>
+                <p class="authors"><span class="author-name">J. Wei</span>, A.-L. Courbis, T. Lambolais, B. Xu, P. L. Bernard, G. Dray and W. Maalej</p>
+                <div class="venue-line">
+                    <span class="venue">ACM Transactions on Software Engineering and Methodology (TOSEM), 2025</span>
+                </div>
+                <div class="links">
+                    <a href="https://dl.acm.org/doi/abs/10.1145/3702993" target="_blank" class="link-btn primary">Paper</a>
+                    <a href="https://arxiv.org/abs/2405.00145" target="_blank" class="link-btn secondary">Preprint</a>
+                </div>
+            </div>
+            <div class="publication-item">
+                <h3>On AI-Inspired UI-Design</h3>
+                <p class="authors"><span class="author-name">J. Wei</span>, A.-L. Courbis, T. Lambolais, B. Xu, P. L. Bernard, G. Dray and W. Maalej</p>
+                <div class="venue-line">
+                    <span class="venue">IEEE Software, 2025</span>
+                </div>
+                <div class="links">
+                    <a href="https://ieeexplore.ieee.org/abstract/document/10886968/" target="_blank" class="link-btn primary">Paper</a>
+                    <a href="https://arxiv.org/abs/2406.13631" target="_blank" class="link-btn secondary">Preprint</a>
+                </div>
+            </div>
+            <div class="publication-item">
+                <h3>On the Automated Processing of User Feedback</h3>
+                <p class="authors">W. Maalej, V. Biryuk, <span class="author-name">J. Wei</span>, and F. Panse</p>
+                <span class="venue">Handbook on Natural Language Processing for Requirements Engineering, Springer, 2025</span>
+                <div class="links">
+                    <a href="https://link.springer.com/chapter/10.1007/978-3-031-73143-3_10" target="_blank" class="link-btn primary">Paper</a>
+                    <a href="https://arxiv.org/abs/2407.15519" target="_blank" class="link-btn secondary">Preprint</a>
+                </div>
+            </div>
+            <div class="publication-item">
+                <h3>Getting Inspiration for Feature Elicitation: App Store- vs. LLM-based Approach</h3>
+                <p class="authors"><span class="author-name">J. Wei</span>, A.-L. Courbis, T. Lambolais, B. Xu, P. L. Bernard, G. Dray and W. Maalej</p>
+                <div class="venue-line">
+                    <span class="venue">International Conference on Automated Software Engineering (ASE'24), 2024</span>
+                </div>
+                <div class="links">
+                    <a href="https://dl.acm.org/doi/abs/10.1145/3691620.3695591" target="_blank" class="link-btn primary">Paper</a>
+                    <a href="https://arxiv.org/abs/2408.17404" target="_blank" class="link-btn secondary">Preprint</a>
+                </div>
+            </div>
+            <a href="https://scholar.google.com/citations?user=fS5N7O4AAAAJ&hl=en" target="_blank" class="link-card" style="margin-top: 16px;">
+                <div class="link-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                        <path d="M2 17l10 5 10-5"/>
+                        <path d="M2 12l10 5 10-5"/>
+                    </svg>
+                </div>
+                <div class="link-content">
+                    <div class="link-title">View all publications on Google Scholar</div>
+                    <div class="link-desc">Citations and full publication list</div>
+                </div>
+            </a>
+        </div>
+
+        <div class="section section-experience">
+            <h2 class="section-title">Research Experience</h2>
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <h3>Postdoctoral Fellow</h3>
+                        <span class="subtitle">Hasso Plattner Institute, University of Potsdam, Germany</span>
+                    </div>
+                    <span class="period">Mar. 2026 – Present</span>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <h3>Postdoctoral Fellow</h3>
+                        <span class="subtitle">University of Hamburg, Germany</span>
+                    </div>
+                    <span class="period">Feb. 2025 – Jan. 2026</span>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <h3>Ph.D. in Computer Science</h3>
+                        <span class="subtitle">EuroMov DHM, IMT Mines Alès, France</span>
+                    </div>
+                    <span class="period">Oct. 2021 – Jan. 2025</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section section-connect">
+            <h2 class="section-title">Connect</h2>
+            <div class="links-grid">
+                <a class="link-card">
+                    <div class="link-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                            <polyline points="22,6 12,13 2,6"/>
+                        </svg>
+                    </div>
+                    <div class="link-content">
+                        <div class="link-title">Email</div>
+                        <div class="link-desc"><span class="obfuscated">moc.kooltuo@iew.gnailaij</span></div>
+                    </div>
+                </a>
+                <a href="https://www.linkedin.com/in/jl-wei" target="_blank" class="link-card">
+                    <div class="link-icon linkedin">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                    </div>
+                    <div class="link-content">
+                        <div class="link-title">LinkedIn</div>
+                    </div>
+                </a>
+                <a href="https://github.com/Jl-wei" target="_blank" class="link-card">
+                    <div class="link-icon github">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </div>
+                    <div class="link-content">
+                        <div class="link-title">GitHub</div>
+                    </div>
+                </a>
+                <a href="https://huggingface.co/Jl-wei" target="_blank" class="link-card">
+                    <div class="link-icon huggingface">
+                        <svg fill="currentColor" fill-rule="evenodd" height="1em" style="flex:none;line-height:1" viewBox="0 0 24 24" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16.781 3.277c2.997 1.704 4.844 4.851 4.844 8.258 0 .995-.155 1.955-.443 2.857a1.332 1.332 0 011.125.4 1.41 1.41 0 01.2 1.723c.204.165.352.385.428.632l.017.062c.06.222.12.69-.2 1.166.244.37.279.836.093 1.236-.255.57-.893 1.018-2.128 1.5l-.202.078-.131.048c-.478.173-.89.295-1.061.345l-.086.024c-.89.243-1.808.375-2.732.394-1.32 0-2.3-.36-2.923-1.067a9.852 9.852 0 01-3.18.018C9.778 21.647 8.802 22 7.494 22a11.249 11.249 0 01-2.541-.343l-.221-.06-.273-.08a16.574 16.574 0 01-1.175-.405c-1.237-.483-1.875-.93-2.13-1.501-.186-.4-.151-.867.093-1.236a1.42 1.42 0 01-.2-1.166c.069-.273.226-.516.447-.694a1.41 1.41 0 01.2-1.722c.233-.248.557-.391.917-.407l.078-.001a9.385 9.385 0 01-.44-2.85c0-3.407 1.847-6.554 4.844-8.258a9.822 9.822 0 019.687 0zM4.188 14.758c.125.687 2.357 2.35 2.14 2.707-.19.315-.796-.239-.948-.386l-.041-.04-.168-.147c-.561-.479-2.304-1.9-2.74-1.432-.43.46.119.859 1.055 1.42l.784.467.136.083c1.045.643 1.12.84.95 1.113-.188.295-3.07-2.1-3.34-1.083-.27 1.011 2.942 1.304 2.744 2.006-.2.7-2.265-1.324-2.685-.537-.425.79 2.913 1.718 2.94 1.725l.16.04.175.042c1.227.284 3.565.65 4.435-.604.673-.973.64-1.709-.248-2.61l-.057-.057c-.945-.928-1.495-2.288-1.495-2.288l-.017-.058-.025-.072c-.082-.22-.284-.639-.63-.584-.46.073-.798 1.21.12 1.933l.05.038c.977.721-.195 1.21-.573.534l-.058-.104-.143-.25c-.463-.799-1.282-2.111-1.739-2.397-.532-.332-.907-.148-.782.541zm14.842-.541c-.533.335-1.563 2.074-1.94 2.751a.613.613 0 01-.687.302.436.436 0 01-.176-.098.303.303 0 01-.049-.06l-.014-.028-.008-.02-.007-.019-.003-.013-.003-.017a.289.289 0 01-.004-.048c0-.12.071-.266.25-.427.026-.024.054-.047.084-.07l.047-.036c.022-.016.043-.032.063-.049.883-.71.573-1.81.131-1.917l-.031-.006-.056-.004a.368.368 0 00-.062.006l-.028.005-.042.014-.039.017-.028.015-.028.019-.036.027-.023.02c-.173.158-.273.428-.31.542l-.016.054s-.53 1.309-1.439 2.234l-.054.054c-.365.358-.596.69-.702 1.018-.143.437-.066.868.21 1.353.055.097.117.195.187.296.882 1.275 3.282.876 4.494.59l.286-.07.25-.074c.276-.084.736-.233 1.2-.42l.188-.077.065-.028.064-.028.124-.056.081-.038c.529-.252.964-.543.994-.827l.001-.036a.299.299 0 00-.037-.139c-.094-.176-.271-.212-.491-.168l-.045.01c-.044.01-.09.024-.136.04l-.097.035-.054.022c-.559.23-1.238.705-1.607.745h.006a.452.452 0 01-.05.003h-.024l-.024-.003-.023-.005c-.068-.016-.116-.06-.14-.142a.22.22 0 01-.005-.1c.062-.345.958-.595 1.713-.91l.066-.028c.528-.224.97-.483.985-.832v-.04a.47.47 0 00-.016-.098c-.048-.18-.175-.251-.36-.251-.785 0-2.55 1.36-2.92 1.36-.025 0-.048-.007-.058-.024a.6.6 0 01-.046-.088c-.1-.238.068-.462 1.06-1.066l.209-.126c.538-.32 1.01-.588 1.341-.831.29-.212.475-.406.503-.6l.003-.028c.008-.113-.038-.227-.147-.344a.266.266 0 00-.07-.054l-.034-.015-.013-.005a.403.403 0 00-.13-.02c-.162 0-.369.07-.595.18-.637.313-1.431.952-1.826 1.285l-.249.215-.033.033c-.08.078-.288.27-.493.386l-.071.037-.041.019a.535.535 0 01-.122.036h.005a.346.346 0 01-.031.003l.01-.001-.013.001c-.079.005-.145-.021-.19-.095a.113.113 0 01-.014-.065c.027-.465 2.034-1.991 2.152-2.642l.009-.048c.1-.65-.271-.817-.791-.493zM11.938 2.984c-4.798 0-8.688 3.829-8.688 8.55 0 .692.083 1.364.24 2.008l.008-.009c.252-.298.612-.46 1.017-.46.355.008.699.117.993.312.22.14.465.384.715.694.261-.372.69-.598 1.15-.605.852 0 1.367.728 1.562 1.383l.047.105.06.127c.192.396.595 1.139 1.143 1.68 1.06 1.04 1.324 2.115.8 3.266a8.865 8.865 0 002.024-.014c-.505-1.12-.26-2.17.74-3.186l.066-.066c.695-.684 1.157-1.69 1.252-1.912.195-.655.708-1.383 1.56-1.383.46.007.889.233 1.15.605.25-.31.495-.553.718-.694a1.87 1.87 0 01.99-.312c.357 0 .682.126.925.36.14-.61.215-1.245.215-1.898 0-4.722-3.89-8.55-8.687-8.55zm1.857 8.926l.439-.212c.553-.264.89-.383.89.152 0 1.093-.771 3.208-3.155 3.262h-.184c-2.325-.052-3.116-2.06-3.156-3.175l-.001-.087c0-1.107 1.452.586 3.25.586.716 0 1.379-.272 1.917-.526zm4.017-3.143c.45 0 .813.358.813.8 0 .441-.364.8-.813.8a.806.806 0 01-.812-.8c0-.442.364-.8.812-.8zm-11.624 0c.448 0 .812.358.812.8 0 .441-.364.8-.812.8a.806.806 0 01-.813-.8c0-.442.364-.8.813-.8zm7.79-.841c.32-.384.846-.54 1.33-.394.483.146.83.564.878 1.06.048.495-.212.97-.659 1.203-.322.168-.447-.477-.767-.585l.002-.003c-.287-.098-.772.362-.925.079a1.215 1.215 0 01.14-1.36zm-4.323 0c.322.384.377.92.14 1.36-.152.283-.64-.177-.925-.079l.003.003c-.108.036-.194.134-.273.24l-.118.165c-.11.15-.22.262-.377.18a1.226 1.226 0 01-.658-1.204c.048-.495.395-.913.878-1.059a1.262 1.262 0 011.33.394z"></path></svg>
+                    </div>
+                    <div class="link-content">
+                        <div class="link-title">Hugging Face</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <footer>
+            &copy; 2026 Jialiang Wei
+        </footer>
+    </div>
+</body>
+</html>
