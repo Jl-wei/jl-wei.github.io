@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jialiang Wei</title>
+    <meta name="description" content="Jialiang Wei is a postdoctoral fellow at Hasso Plattner Institute. He studies how AI can help turn user feedback into requirements development teams can build.">
+    <link rel="shortcut icon" href="emoji-sing-right.svg"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            color-scheme: light;
+            --bg: #f2f5fa;
+            --surface: #fdfeff;
+            --ink: #1c2a44;
+            --ink-soft: #45546f;
+            --ink-faint: #5f6b82;
+            --rule: #d3dbe8;
+            --star: #f0c45b;
+            --star-ink: #232a38;
+            --link: #2a5bb5;
+            --rating-star: #d9991a;
+            --display: 'Bricolage Grotesque', 'Avenir Next', 'Segoe UI', sans-serif;
+            --body: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                color-scheme: dark;
+                --bg: #131a26;
+                --surface: #1d2738;
+                --ink: #eaf0f8;
+                --ink-soft: #bcc8da;
+                --ink-faint: #9facc2;
+                --rule: #34445e;
+                --link: #9cc2f7;
+                --rating-star: #f0c45b;
+            }
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--body);
+            font-size: 17px;
+            line-height: 1.6;
+            background: var(--bg);
+            color: var(--ink);
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+
+        ::selection { background: var(--star); color: var(--star-ink); }
+
+        a { color: var(--link); text-underline-offset: 3px; text-decoration-thickness: 1.5px; }
+        a:hover { text-decoration-thickness: 3px; }
+
+        :focus-visible {
+            outline: 3px solid var(--link);
+            outline-offset: 3px;
+            border-radius: 4px;
+        }
+
+        h1, h2, h3 { font-family: var(--display); line-height: 1.1; }
+
+        .page {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 28px;
+        }
+
+        /* Top bar */
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            padding: 24px 0;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--display);
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--ink);
+            text-decoration: none;
+        }
+
+        .brand svg { width: 28px; height: 28px; }
+
+        .topbar nav { display: flex; flex-wrap: wrap; gap: 6px 22px; }
+
+        .topbar nav a {
+            color: var(--ink-soft);
+            font-size: 15px;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .topbar nav a:hover { color: var(--ink); text-decoration: underline; }
+
+        /* Hero */
+        .hero {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 300px;
+            gap: 56px;
+            align-items: center;
+            padding: 56px 0 88px;
+        }
+
+        .hero-name {
+            font-size: 19px;
+            font-weight: 500;
+            font-family: var(--body);
+            color: var(--ink-soft);
+            margin-bottom: 18px;
+        }
+
+        .hero-name strong { color: var(--ink); font-weight: 600; }
+
+        .hero h1 {
+            font-size: 34px;
+            font-weight: 800;
+            letter-spacing: -0.025em;
+            line-height: 1.3;
+            margin-bottom: 18px;
+            text-wrap: balance;
+        }
+
+        .quote {
+            background: var(--star);
+            color: var(--star-ink);
+            display: inline-block;
+            line-height: 1;
+            padding: 0.03em 0.14em 0.07em;
+            border-radius: 0.14em;
+            white-space: nowrap;
+            box-decoration-break: clone;
+            -webkit-box-decoration-break: clone;
+        }
+
+        .hero-bio {
+            max-width: 58ch;
+            color: var(--ink-soft);
+        }
+
+        .portrait {
+            position: relative;
+            justify-self: end;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .portrait::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--star);
+            border-radius: 28px;
+            transform: translate(14px, 14px) rotate(3deg);
+        }
+
+        .portrait img {
+            position: relative;
+            display: block;
+            width: 100%;
+            height: auto;
+            aspect-ratio: 1;
+            object-fit: cover;
+            border-radius: 28px;
+        }
+
+        .portrait .stars { color: var(--rating-star); letter-spacing: 1px; display: block; }
+
+        /* Sections */
+        .block {
+            display: grid;
+            grid-template-columns: 220px minmax(0, 1fr);
+            gap: 40px;
+            padding: 56px 0;
+            border-top: 2px solid var(--ink);
+        }
+
+        .block-head h2 {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.015em;
+            margin-bottom: 10px;
+        }
+
+        .block-head p {
+            font-size: 15px;
+            color: var(--ink-faint);
+            line-height: 1.45;
+        }
+
+        /* Research, translated */
+        .translate { list-style: none; }
+
+        .translate li {
+            display: grid;
+            grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+            gap: 28px;
+            align-items: center;
+            padding: 18px 0;
+            border-bottom: 1px solid var(--rule);
+        }
+
+        .translate li:first-child { padding-top: 0; }
+        .translate li:last-child { border-bottom: 0; padding-bottom: 0; }
+
+        .says {
+            justify-self: start;
+            background: var(--surface);
+            border-radius: 18px 18px 18px 3px;
+            padding: 10px 16px;
+            font-size: 16px;
+            color: var(--ink);
+        }
+
+        .says .stars { display: block; font-size: 12px; letter-spacing: 1px; color: var(--rating-star); }
+        .says .stars span { color: var(--rule); }
+
+        .means h3 { font-size: 20px; font-weight: 700; margin-bottom: 3px; }
+        .means p { font-size: 15.5px; color: var(--ink-soft); line-height: 1.45; }
+
+        .col-labels {
+            display: grid;
+            grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+            gap: 28px;
+            font-size: 14px;
+            color: var(--ink-faint);
+            margin-bottom: 14px;
+        }
+
+        /* Publications */
+        .pubs { list-style: none; }
+
+        .pubs li {
+            display: grid;
+            grid-template-columns: 96px minmax(0, 1fr);
+            gap: 20px;
+            padding: 22px 0;
+            border-bottom: 1px solid var(--rule);
+        }
+
+        .pubs li:first-child { padding-top: 0; }
+
+        .pub-tag {
+            font-family: var(--display);
+            font-weight: 700;
+            font-size: 15px;
+            line-height: 1.25;
+            padding-top: 3px;
+        }
+
+        .pub-tag span {
+            display: block;
+            font-family: var(--body);
+            font-weight: 400;
+            font-size: 14px;
+            color: var(--ink-faint);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .pubs h3 {
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 1.25;
+            letter-spacing: -0.01em;
+            margin-bottom: 6px;
+            text-wrap: pretty;
+        }
+
+        .authors, .venue { font-size: 15px; color: var(--ink-soft); line-height: 1.45; }
+        .authors b { color: var(--ink); font-weight: 600; }
+        .venue { font-style: italic; }
+        .note { font-size: 13.5px; color: var(--ink-faint); }
+
+        .pub-links { display: flex; gap: 18px; margin-top: 8px; font-size: 15px; font-weight: 500; }
+
+        .more { margin-top: 22px; font-size: 16px; }
+
+        /* Experience */
+        .releases { list-style: none; }
+
+        .releases li {
+            display: grid;
+            grid-template-columns: 96px minmax(0, 1fr);
+            gap: 20px;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--rule);
+        }
+
+        .releases li:first-child { padding-top: 0; }
+        .releases li:last-child { border-bottom: 0; padding-bottom: 0; }
+
+        .version {
+            justify-self: start;
+            align-self: start;
+            font-family: var(--display);
+            font-weight: 700;
+            font-size: 15px;
+            padding: 3px 11px;
+            border: 2px solid var(--ink);
+            border-radius: 999px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .releases li.current .version {
+            background: var(--star);
+            border-color: var(--star);
+            color: var(--star-ink);
+        }
+
+        .releases h3 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+        .releases .where { color: var(--ink-soft); font-size: 16px; }
+        .releases .when { color: var(--ink-faint); font-size: 14.5px; font-variant-numeric: tabular-nums; }
+        .releases .notes { margin-top: 6px; font-size: 15px; color: var(--ink-soft); }
+
+        /* Contact */
+        .contact { list-style: none; }
+
+        .contact li {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 4px 20px;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--rule);
+        }
+
+        .contact li:first-child { padding-top: 0; }
+
+        .contact .channel {
+            font-family: var(--display);
+            font-weight: 700;
+            font-size: 22px;
+            color: var(--ink);
+        }
+
+        .contact a.channel { text-decoration-color: var(--star); text-decoration-thickness: 3px; }
+        .contact a.channel:hover { text-decoration-color: var(--ink); }
+
+        .contact .detail { font-size: 15px; color: var(--ink-faint); }
+
+        .obfuscated { unicode-bidi: bidi-override; direction: rtl; }
+
+        button {
+            font: inherit;
+            color: inherit;
+            background: none;
+            border: 0;
+            cursor: pointer;
+        }
+
+        .copy {
+            font-size: 14.5px;
+            font-weight: 600;
+            padding: 5px 14px;
+            border: 2px solid var(--ink);
+            border-radius: 999px;
+            margin-left: 10px;
+        }
+
+        .copy:hover { background: var(--ink); color: var(--bg); }
+
+        /* Rating */
+        .rate {
+            display: grid;
+            grid-template-columns: 64px minmax(0, 1fr);
+            gap: 20px;
+            align-items: center;
+            margin-top: 36px;
+            background: var(--surface);
+            border-radius: 22px;
+            padding: 22px 24px;
+        }
+
+        .rate .face { width: 64px; height: 64px; color: var(--ink); }
+
+        .rate-stars { display: flex; gap: 2px; margin-bottom: 6px; }
+
+        .rate-stars button {
+            width: 40px;
+            height: 40px;
+            display: grid;
+            place-items: center;
+            border-radius: 8px;
+            color: var(--rule);
+            transition: transform 0.15s ease;
+        }
+
+        .rate-stars button svg { width: 30px; height: 30px; fill: currentColor; }
+        .rate-stars button.on { color: var(--rating-star); }
+        .rate-stars button:hover { transform: scale(1.15); }
+
+        .rate-msg { font-size: 15.5px; color: var(--ink-soft); min-height: 3.1em; }
+
+        footer {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 6px 24px;
+            padding: 28px 0 56px;
+            border-top: 2px solid var(--ink);
+            font-size: 14.5px;
+            color: var(--ink-faint);
+        }
+
+        @media (max-width: 760px) {
+            body { font-size: 16px; }
+            .page { padding: 0 20px; }
+            .topbar { padding: 16px 0; gap: 12px; }
+            .brand span { display: none; }
+            .topbar nav { gap: 2px 10px; justify-content: flex-end; }
+            .topbar nav a { font-size: 14px; padding: 6px 0; }
+
+            .hero {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 12px 0 48px;
+            }
+
+            .hero {
+                grid-template-columns: 92px minmax(0, 1fr);
+                grid-template-areas: "photo name" "photo cap" "head head" "bio bio";
+                column-gap: 20px;
+                row-gap: 0;
+            }
+            .hero > div, .portrait { display: contents; }
+            .portrait::before { display: none; }
+            .portrait img {
+                grid-area: photo;
+                align-self: start;
+                width: 92px;
+                border-radius: 20px;
+                box-shadow: 6px 6px 0 var(--star);
+            }
+            .hero-name { grid-area: name; align-self: end; margin: 15px; font-size: 15.5px; line-height: 1.35; }
+            .hero-name strong { display: block; font-family: var(--display); font-size: 21px; font-weight: 700; line-height: 1.2; margin-bottom: 2px; }
+            .hero-name .sep { display: none; }
+            .hero-name .role { display: block; }
+            .hero-name .role::first-letter { text-transform: uppercase; }
+            .portrait .stars { display: inline; margin-right: 6px; }
+            .hero h1 { grid-area: head; margin-top: 26px; }
+            .hero-bio { grid-area: bio; }
+            .hero h1 { margin-bottom: 14px; font-size: 27px; }
+
+            .block { grid-template-columns: 1fr; gap: 24px; padding: 40px 0; }
+
+            .col-labels { display: none; }
+            .translate li { grid-template-columns: 1fr; gap: 10px; }
+
+            .pubs li, .releases li { grid-template-columns: 1fr; gap: 8px; }
+            .pub-tag span { display: inline; margin-left: 8px; }
+
+            .contact li { flex-direction: column; gap: 2px; }
+            .copy { margin-left: 8px; }
+            .rate { grid-template-columns: 52px minmax(0, 1fr); gap: 14px; padding: 18px 16px; align-items: start; }
+            .rate .face { width: 52px; height: 52px; }
+            .rate-stars button { width: 38px; }
+
+            .topbar {
+                position: sticky;
+                top: 0;
+                z-index: 5;
+                margin: 0 -20px;
+                padding: 10px 20px;
+                background: var(--bg);
+                border-bottom: 1px solid var(--rule);
+            }
+            .topbar nav a { padding: 8px 0; }
+            .block { scroll-margin-top: 60px; padding: 32px 0; gap: 20px; }
+            .block-head h2 { font-size: 24px; margin-bottom: 6px; }
+
+            .means h3 { font-size: 18px; }
+            .pubs li { padding: 18px 0; }
+            .pubs h3 { font-size: 18px; }
+            .pub-links a { padding: 6px 0; }
+            .pub-links { margin-top: 2px; }
+
+            .releases li { position: relative; padding: 16px 0; }
+            .releases li:first-child .version { top: 0; }
+            .releases h3 { font-size: 18px; padding-right: 64px; }
+            .version { position: absolute; top: 16px; right: 0; font-size: 13.5px; padding: 2px 9px; }
+
+            .contact li { padding: 11px 0; }
+            .contact .channel { font-size: 19px; }
+            footer { padding: 22px 0 40px; }
+        }
+
+        @media (max-width: 370px) {
+            .brand { display: none; }
+            .topbar nav { flex: 1; justify-content: space-between; gap: 2px 8px; }
+            .topbar nav a { font-size: 13.5px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            * { transition: none !important; }
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+
+    <header class="topbar">
+        <a class="brand" href="#top" aria-label="Jialiang Wei, back to top">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/><circle cx="16" cy="15" r="2"/>
+                <circle cx="8.5" cy="8.5" r=".6" fill="currentColor"/><circle cx="15.5" cy="8.5" r=".6" fill="currentColor"/>
+            </svg>
+            <span>Jialiang Wei</span>
+        </a>
+        <nav aria-label="Sections">
+            <a href="#research">Research</a>
+            <a href="#publications">Publications</a>
+            <a href="#experience">Experience</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <main id="top">
+        <section class="hero">
+            <div>
+                <p class="hero-name"><strong>Jialiang Wei</strong><span class="sep">, </span><span class="role">postdoctoral fellow at Hasso Plattner Institute</span></p>
+                <h1>I try to turn <span class="quote">&ldquo;this app is trash&rdquo;</span> into requirements a team can build.</h1>
+                <p class="hero-bio">
+                    I work in <a href="https://maalejw.github.io" target="_blank" rel="noopener noreferrer">Prof. Dr. Walid Maalej</a>'s group at
+                    <a href="https://hpi.de/en/" target="_blank" rel="noopener noreferrer">Hasso Plattner Institute</a>.
+                    My research explores how AI can help close the communication gap between the people who use software and the people who build it,
+                    so that both sides end up describing the same product.
+                </p>
+            </div>
+            <figure class="portrait">
+                <img src="avatar.jpg" alt="Portrait of Jialiang Wei" width="300" height="300">
+            </figure>
+        </section>
+
+        <section class="block" id="research">
+            <div class="block-head">
+                <h2>Research</h2>
+                <p>Four topics, each introduced by the kind of feedback that motivates it.</p>
+            </div>
+            <div>
+                <div class="col-labels" aria-hidden="true"><span>What users write</span><span>What I work on</span></div>
+                <ul class="translate">
+                    <li>
+                        <p class="says"><span class="stars" aria-hidden="true">★★★<span>★★</span></span>&ldquo;Nice app, but something feels off.&rdquo;</p>
+                        <div class="means">
+                            <h3>Requirements engineering</h3>
+                            <p>Working out what the software should do instead, precisely enough to build it.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <p class="says"><span class="stars" aria-hidden="true">★★<span>★★★</span></span>&ldquo;Why is the button over there?!&rdquo;</p>
+                        <div class="means">
+                            <h3>User interface</h3>
+                            <p>Using AI to help search for and design better app screens.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <p class="says"><span class="stars" aria-hidden="true">★<span>★★★★</span></span>&ldquo;One star. Would give zero.&rdquo;</p>
+                        <div class="means">
+                            <h3>User feedback</h3>
+                            <p>Processing feedback automatically, and helping users suggest fixes instead of complaining.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <p class="says"><span class="stars" aria-hidden="true">★★<span>★★★</span></span>&ldquo;I&rsquo;m switching to that other app.&rdquo;</p>
+                        <div class="means">
+                            <h3>Mining software repositories</h3>
+                            <p>Learning from what similar apps in the app stores already offer.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="block" id="publications">
+            <div class="block-head">
+                <h2>Publications</h2>
+                <p>Selected papers. The titles are longer than some app reviews.</p>
+            </div>
+            <div>
+                <ul class="pubs">
+                    <li>
+                        <p class="pub-tag">ICSE <span>2026</span></p>
+                        <div>
+                            <h3>LikeThis! Empowering App Users to Submit UI Improvement Suggestions Instead of Complaints</h3>
+                            <p class="authors"><b>J. Wei</b>*, A. Ebrahimi Pourasad* and W. Maalej <span class="note">(* co-first authors)</span></p>
+                            <p class="venue">International Conference on Software Engineering (ICSE '26)</p>
+                            <p class="pub-links">
+                                <a href="https://dl.acm.org/doi/10.1145/3744916.3787834" target="_blank" rel="noopener noreferrer">Paper</a>
+                                <a href="https://arxiv.org/abs/2603.04245" target="_blank" rel="noopener noreferrer">Preprint</a>
+                            </p>
+                        </div>
+                    </li>
+                    <li>
+                        <p class="pub-tag">TOSEM <span>2026</span></p>
+                        <div>
+                            <h3>ELISA, a Requirements ELIcitation Smart Agent—Comparison of State-of-the-Art LLMs</h3>
+                            <p class="authors">A.-L. Courbis, <b>J. Wei</b> and T. Lambolais</p>
+                            <p class="venue">ACM Transactions on Software Engineering and Methodology (TOSEM)</p>
+                            <p class="pub-links">
+                                <a href="https://dl.acm.org/doi/10.1145/3811924" target="_blank" rel="noopener noreferrer">Paper</a>
+                            </p>
+                        </div>
+                    </li>
+                    <li>
+                        <p class="pub-tag">TOSEM <span>2025</span></p>
+                        <div>
+                            <h3>GUing: A Mobile GUI Search Engine using a Vision-Language Model</h3>
+                            <p class="authors"><b>J. Wei</b>, A.-L. Courbis, T. Lambolais, B. Xu, P. L. Bernard, G. Dray and W. Maalej</p>
+                            <p class="venue">ACM Transactions on Software Engineering and Methodology (TOSEM)</p>
+                            <p class="pub-links">
+                                <a href="https://dl.acm.org/doi/10.1145/3702993" target="_blank" rel="noopener noreferrer">Paper</a>
+                                <a href="https://arxiv.org/abs/2405.00145" target="_blank" rel="noopener noreferrer">Preprint</a>
+                            </p>
+                        </div>
+                    </li>
+                    <li>
+                        <p class="pub-tag">IEEE Software <span>2025</span></p>
+                        <div>
+                            <h3>On AI-Inspired UI-Design</h3>
+                            <p class="authors"><b>J. Wei</b>, A.-L. Courbis, T. Lambolais, B. Xu, P. L. Bernard, G. Dray and W. Maalej</p>
+                            <p class="venue">IEEE Software</p>
+                            <p class="pub-links">
+                                <a href="https://ieeexplore.ieee.org/abstract/document/10886968/" target="_blank" rel="noopener noreferrer">Paper</a>
+                                <a href="https://arxiv.org/abs/2406.13631" target="_blank" rel="noopener noreferrer">Preprint</a>
+                            </p>
+                        </div>
+                    </li>
+                    <li>
+                        <p class="pub-tag">Springer <span>2025</span></p>
+                        <div>
+                            <h3>On the Automated Processing of User Feedback</h3>
+                            <p class="authors">W. Maalej, V. Biryuk, <b>J. Wei</b> and F. Panse</p>
+                            <p class="venue">Handbook on Natural Language Processing for Requirements Engineering, Springer</p>
+                            <p class="pub-links">
+                                <a href="https://link.springer.com/chapter/10.1007/978-3-031-73143-3_10" target="_blank" rel="noopener noreferrer">Paper</a>
+                                <a href="https://arxiv.org/abs/2407.15519" target="_blank" rel="noopener noreferrer">Preprint</a>
+                            </p>
+                        </div>
+                    </li>
+                    <li>
+                        <p class="pub-tag">ASE <span>2024</span></p>
+                        <div>
+                            <h3>Getting Inspiration for Feature Elicitation: App Store- vs. LLM-based Approach</h3>
+                            <p class="authors"><b>J. Wei</b>, A.-L. Courbis, T. Lambolais, B. Xu, P. L. Bernard, G. Dray and W. Maalej</p>
+                            <p class="venue">International Conference on Automated Software Engineering (ASE '24)</p>
+                            <p class="pub-links">
+                                <a href="https://dl.acm.org/doi/10.1145/3691620.3695591" target="_blank" rel="noopener noreferrer">Paper</a>
+                                <a href="https://arxiv.org/abs/2408.17404" target="_blank" rel="noopener noreferrer">Preprint</a>
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+                <p class="more"><a href="https://scholar.google.com/citations?user=fS5N7O4AAAAJ&hl=en" target="_blank" rel="noopener noreferrer">See the full list on Google Scholar</a></p>
+            </div>
+        </section>
+
+        <section class="block" id="experience">
+            <div class="block-head">
+                <h2>Research experience</h2>
+                <p>Written as release notes.</p>
+            </div>
+            <ul class="releases">
+                <li class="current">
+                    <span class="version">v3.0</span>
+                    <div>
+                        <h3>Postdoctoral fellow</h3>
+                        <p class="where">Hasso Plattner Institute, University of Potsdam, Germany</p>
+                        <p class="when">Mar. 2026 to present</p>
+                        <p class="notes">Current release. Still fixing bugs.</p>
+                    </div>
+                </li>
+                <li>
+                    <span class="version">v2.0</span>
+                    <div>
+                        <h3>Postdoctoral fellow</h3>
+                        <p class="where">University of Hamburg, Germany</p>
+                        <p class="when">Feb. 2025 to Jan. 2026</p>
+                        <p class="notes">Migrated from France to Germany. Breaking change: the language.</p>
+                    </div>
+                </li>
+                <li>
+                    <span class="version">v1.0</span>
+                    <div>
+                        <h3>Ph.D. in Computer Science</h3>
+                        <p class="where">EuroMov DHM, IMT Mines Alès, France</p>
+                        <p class="when">Oct. 2021 to Jan. 2025</p>
+                        <p class="notes">Initial release. Shipped with a thesis and a few known issues.</p>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <section class="block" id="contact">
+            <div class="block-head">
+                <h2>Send feedback</h2>
+                <p>Suggestions preferred over complaints, but I'll gladly take either.</p>
+            </div>
+            <div>
+                <ul class="contact">
+                    <li>
+                        <span class="channel">Email</span>
+                        <span class="detail">
+                            <span class="obfuscated" id="email">moc.kooltuo@iew.gnailaij</span>
+                            <button type="button" class="copy" id="copy-email">Copy address</button>
+                        </span>
+                    </li>
+                    <li>
+                        <a class="channel" href="https://www.linkedin.com/in/jl-wei" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                        <span class="detail">The formal version of this page</span>
+                    </li>
+                    <li>
+                        <a class="channel" href="https://github.com/Jl-wei" target="_blank" rel="noopener noreferrer">GitHub</a>
+                        <span class="detail">Code behind the papers</span>
+                    </li>
+                    <li>
+                        <a class="channel" href="https://huggingface.co/Jl-wei" target="_blank" rel="noopener noreferrer">Hugging Face</a>
+                        <span class="detail">Models and datasets</span>
+                    </li>
+                    <li>
+                        <a class="channel" href="https://scholar.google.com/citations?user=fS5N7O4AAAAJ&hl=en" target="_blank" rel="noopener noreferrer">Google Scholar</a>
+                        <span class="detail">Every paper, with citation counts</span>
+                    </li>
+                </ul>
+
+                <div class="rate">
+                    <svg class="face" id="face" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="12" cy="12" r="10"/><path d="M10 11h4"/>
+                        <circle cx="8.5" cy="6.5" r=".55" fill="currentColor"/><circle cx="15.5" cy="6.5" r=".55" fill="currentColor"/>
+                    </svg>
+                    <div>
+                        <div class="rate-stars" id="stars" role="group" aria-label="Rate this page">
+                            <button type="button" aria-label="1 star" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6.2 6.6.8-4.9 4.6 1.3 6.6L12 17.4l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"/></svg></button>
+                            <button type="button" aria-label="2 stars" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6.2 6.6.8-4.9 4.6 1.3 6.6L12 17.4l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"/></svg></button>
+                            <button type="button" aria-label="3 stars" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6.2 6.6.8-4.9 4.6 1.3 6.6L12 17.4l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"/></svg></button>
+                            <button type="button" aria-label="4 stars" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6.2 6.6.8-4.9 4.6 1.3 6.6L12 17.4l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"/></svg></button>
+                            <button type="button" aria-label="5 stars" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6.2 6.6.8-4.9 4.6 1.3 6.6L12 17.4l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"/></svg></button>
+                        </div>
+                        <p class="rate-msg" id="rate-msg" aria-live="polite">Rate this page. Your rating is stored nowhere, which keeps my analytics pipeline very GDPR-compliant.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <span>&copy; 2026 Jialiang Wei</span>
+    </footer>
+</div>
+
+<script>
+(function () {
+    var eye = function (x, y) { return '<circle cx="' + x + '" cy="' + y + '" r=".55" fill="currentColor"/>'; };
+    var head = '<circle cx="12" cy="12" r="10"/>';
+    var faces = {
+        0: head + '<path d="M10 11h4"/>' + eye(8.5, 6.5) + eye(15.5, 6.5),
+        1: '<path d="M2 12c0 5.52 4.48 10 10 10s10-4.48 10-10S17.52 2 12 2"/><path d="M11.5 15.5s1.5-2 4.5-2 4.5 2 4.5 2"/><path d="M3 4c0-2.75 4-2.75 4 0 0 1.97-2 1.64-2 4"/><path d="M5 11.01l.01-.01"/>' + eye(10.5, 8.5) + eye(17.5, 8.5),
+        2: head + '<path d="M14 15h3"/>' + eye(8.5, 8.5) + eye(15.5, 8.5),
+        3: head + '<path d="M10 11h4"/>' + eye(8.5, 6.5) + eye(15.5, 6.5),
+        5: head + '<path d="M10 9H8M16 9h-2"/><path d="M14 13h-4v3c0 .67.4 2 2 2s2-1.33 2-2v-3z"/>',
+        4: head + '<circle cx="16" cy="15" r="2"/>' + eye(8.5, 8.5) + eye(15.5, 8.5)
+    };
+    var messages = {
+        1: 'One star. Fair enough. If you can rephrase it as a suggestion, I would be grateful.',
+        2: 'Two stars. There is a requirement hiding in there somewhere. Email me and we will elicit it together.',
+        3: 'Three stars. The most honest rating on the internet.',
+        4: 'Four stars. I will spend the weekend wondering about the fifth.',
+        5: 'Five stars. Very kind. Reviewer 2 will be along shortly to restore balance.'
+    };
+
+    var face = document.getElementById('face');
+    var msg = document.getElementById('rate-msg');
+    var buttons = Array.prototype.slice.call(document.querySelectorAll('#stars button'));
+    var chosen = 0;
+
+    function paint(n) {
+        buttons.forEach(function (b, i) { b.classList.toggle('on', i < n); });
+        face.innerHTML = faces[n];
+    }
+
+    buttons.forEach(function (b, i) {
+        var n = i + 1;
+        b.addEventListener('mouseenter', function () { paint(n); });
+        b.addEventListener('focus', function () { paint(n); });
+        b.addEventListener('mouseleave', function () { paint(chosen); });
+        b.addEventListener('blur', function () { paint(chosen); });
+        b.addEventListener('click', function () {
+            chosen = n;
+            buttons.forEach(function (x, j) { x.setAttribute('aria-pressed', j === i ? 'true' : 'false'); });
+            paint(n);
+            msg.textContent = messages[n];
+        });
+    });
+
+    var copy = document.getElementById('copy-email');
+    copy.addEventListener('click', function () {
+        var address = document.getElementById('email').textContent.split('').reverse().join('');
+        var done = function () {
+            copy.textContent = 'Copied';
+            setTimeout(function () { copy.textContent = 'Copy address'; }, 1800);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(address).then(done, function () { window.prompt('Copy this address', address); });
+        } else {
+            window.prompt('Copy this address', address);
+        }
+    });
+})();
+</script>
+</body>
+</html>
